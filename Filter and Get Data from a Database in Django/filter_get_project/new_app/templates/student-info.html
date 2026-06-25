@@ -1,0 +1,61 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+<h1>Student List of {{filter_option}}</h1>
+<form method="GET">
+<div class="row g-3 align-items-center">
+  <div class="col-auto">
+  <select class="form-select" name='dept_name' aria-label="Default select example">
+  
+  <option value="all">All</option>
+  
+  <option value="cse"
+  {% if filter_option == 'cse' %}
+    Selected
+  {% endif %}
+  >CSE</option>
+  
+  <option value="eee"
+  {% if filter_option == 'eee' %}
+    Selected
+  {% endif %}
+  >EEE</option>
+  
+  <option value="civil"
+  {% if filter_option == 'civil' %}
+    Selected
+  {% endif %}
+  >Civil</option>
+
+  </select>
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary">Filter</button>
+  </div>
+  <div class="col-auto">
+    <a href="{% url 'student_info_view' %}" class="btn btn-danger">Clear</a>
+  </div>
+</div>
+</form>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Department</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for student in student_data %}
+      <tr>
+        <td>{{student.name}}</td>
+        <td>{{student.department}}</td>
+        <td>
+          <img src="/{{student.image}}" alt="" width="50px" />
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}
